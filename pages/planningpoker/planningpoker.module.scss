@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //   background-image: linear-gradient(
+  //       to right bottom,
+  //       rgba(90, 60, 36, 0.7),
+  //       rgba(192, 135, 29, 0.7)
+  //     ),
+  //     url("/images/pexels-photomix-company-518245.jpeg");
+  //   background-size: cover;
+  height: 100%;
+}
+
+.card {
+  display: grid;
+  background-color: white;
+  grid-template-rows: min-content min-content;
+  padding: 2rem;
+  border-radius: 10px;
+}

@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { Input, Button } from "@chakra-ui/react";
+import { Input, Button, Box } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 
 import { io } from "socket.io-client";
 
-const connectionOptions = {
-  forceNew: true,
-  reconnectionAttempts: "Infinity",
-  timeout: 10000,
-  transports: ["websocket"],
-};
+import styles from "./planningpoker.module.scss";
+// import CreateGame from "components/planningpoker/createGame";
+
+const CreateGame = dynamic(
+  () => import("components/planningpoker/createGame"),
+  { ssr: false }
+);
+
 const socket = io("http://localhost:8000");
 
 type IMessage = {
@@ -31,8 +34,11 @@ function PlanningPoker() {
   }, []);
 
   return (
-    <div>
-      <Input
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <CreateGame></CreateGame>
+      </div>
+      {/* <Input
         placeholder="Your message"
         onChange={(e) => setMessage(e.target.value)}
         value={message}
@@ -42,7 +48,7 @@ function PlanningPoker() {
       </Button>
       {list.map((p, key) => (
         <li key={key}>{p.message}</li>
-      ))}
+      ))} */}
     </div>
   );
 }
