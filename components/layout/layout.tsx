@@ -12,6 +12,7 @@ import {
 } from "@ant-design/icons";
 
 import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 import styles from "./layout.module.scss";
 import utilStyles from "../styles/utils.module.scss";
@@ -87,10 +88,6 @@ export default function Layout({
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
-        />
       </Head>
       <header className={styles.header}>
         <Menu
@@ -103,7 +100,7 @@ export default function Layout({
               <a>login</a>
             </Link>
           </Menu.Item>
-          <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
+          <Menu.Item key="app" icon={<AppstoreOutlined />}>
             <Link href={"/register"}>
               <a>Register</a>
             </Link>

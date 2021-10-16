@@ -170,3 +170,8 @@ img {
   max-width: 100%;
   display: block;
 }
+
+#nprogress .bar {
+  height: 5px !important;
+  background-color: aquamarine !important;
+}

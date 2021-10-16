@@ -1,6 +1,7 @@
 .container {
   display: grid;
   grid-template-rows: min-content 1fr min-content;
+  background-color: #edf2f7;
 }
 
 .header {
