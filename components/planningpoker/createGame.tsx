@@ -9,6 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import randomCodeGenerator from "utils/randomCodeGenerator";
+import { io } from "socket.io-client";
+
+import { createRoom } from "requests";
 
 function CreateGame() {
   const router = useRouter();
@@ -20,14 +23,23 @@ function CreateGame() {
     return error;
   }
 
+  // function createRoomC(name: string | "") {
+  //   const { posts, error } = createRoom("/room");
+  //   console.log(error);
+  // }
+
   return (
     <Formik
       initialValues={{ name: "" }}
       onSubmit={(values, actions) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
-          router.push(`/planningpoker/${randomCodeGenerator(5)}`);
+          fetch("http://localhost:8000/api/v1/room", {
+            method: "POST",
+            body: values.name,
+          });
+          // createRoomC(values.name);
+          // router.push(`/planningpoker/${randomCodeGenerator(5)}`);
         }, 1000);
       }}
     >

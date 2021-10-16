@@ -1,6 +1,7 @@
 .container {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  align-items: start;
   justify-content: center;
   //   background-image: linear-gradient(
   //       to right bottom,
@@ -18,4 +19,15 @@
   grid-template-rows: min-content min-content;
   padding: 2rem;
   border-radius: 10px;
+  form {
+    display: grid;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  overflow: unset;
 }

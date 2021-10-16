@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { Input, Button, Box } from "@chakra-ui/react";
+import Image from "next/image";
+
+import { Heading, Button, Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 
 import { io } from "socket.io-client";
@@ -35,20 +37,15 @@ function PlanningPoker() {
 
   return (
     <div className={styles.container}>
+      <h2 className={styles.title}>
+        <Image src="/images/cards.png" alt="me" width="64" height="64" />
+        <Heading as="h2" size="2xl">
+          Planning poker
+        </Heading>
+      </h2>
       <div className={styles.card}>
         <CreateGame></CreateGame>
       </div>
-      {/* <Input
-        placeholder="Your message"
-        onChange={(e) => setMessage(e.target.value)}
-        value={message}
-      />
-      <Button colorScheme="blue" onClick={sendName}>
-        Send message
-      </Button>
-      {list.map((p, key) => (
-        <li key={key}>{p.message}</li>
-      ))} */}
     </div>
   );
 }
