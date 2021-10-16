@@ -17,7 +17,7 @@ export default function Home({
 }) {
   return (
     <Layout home>
-      <Head>
+      {/* <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
@@ -42,7 +42,7 @@ export default function Home({
             </li>
           ))}
         </ul>
-      </section>
+      </section> */}
     </Layout>
   );
 }

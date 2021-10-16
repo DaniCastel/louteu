@@ -1,26 +1,22 @@
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { Box } from "@chakra-ui/react";
 import Router from "next/router";
+
+import { Menu, Button } from "antd";
+import {
+  MailOutlined,
+  AppstoreOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+
 import NProgress from "nprogress";
 
 import styles from "./layout.module.scss";
 import utilStyles from "../styles/utils.module.scss";
 
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuIcon,
-  MenuCommand,
-  MenuDivider,
-  Button,
-} from "@chakra-ui/react";
+const { SubMenu } = Menu;
 
 let timer: ReturnType<typeof setTimeout>;
 let state: string;
@@ -66,8 +62,17 @@ export default function Layout({
   children: React.ReactNode;
   home?: boolean;
 }) {
+  const [state, setState] = useState({
+    current: "mail",
+  });
+
+  const handleClick = (e: { key: any }) => {
+    console.log("click ", e);
+    setState({ current: e.key });
+  };
+
   return (
-    <Box className={styles.container}>
+    <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -88,35 +93,48 @@ export default function Layout({
         />
       </Head>
       <header className={styles.header}>
-        louteu
-        <div>
-          <Link href={"/login"}>
-            <a>Login</a>
-          </Link>
-          <Link href={"/register"}>
-            <a>Register</a>
-          </Link>
-          <Button as={Button} mr={2}>
-            eje
-          </Button>
-          <Menu isLazy>
-            {/* <MenuButton as={Button}>Profile</MenuButton> */}
-            <MenuList id="1">
-              <MenuGroup title="Profile">
-                <MenuItem>My Account</MenuItem>
-                <MenuItem>Payments </MenuItem>
-              </MenuGroup>
-              <MenuDivider />
-              <MenuGroup title="Help">
-                <MenuItem>Docs</MenuItem>
-                <MenuItem>FAQ</MenuItem>
-              </MenuGroup>
-            </MenuList>
-          </Menu>
-        </div>
+        <Menu
+          onClick={handleClick}
+          selectedKeys={[state.current]}
+          mode="horizontal"
+        >
+          <Menu.Item key="mail" icon={<MailOutlined />}>
+            <Link href={"/login"}>
+              <a>login</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
+            <Link href={"/register"}>
+              <a>Register</a>
+            </Link>
+          </Menu.Item>
+          <SubMenu
+            key="SubMenu"
+            icon={<SettingOutlined />}
+            title="Navigation Three - Submenu"
+          >
+            <Menu.ItemGroup title="Item 1">
+              <Menu.Item key="setting:1">Option 1</Menu.Item>
+              <Menu.Item key="setting:2">Option 2</Menu.Item>
+            </Menu.ItemGroup>
+            <Menu.ItemGroup title="Item 2">
+              <Menu.Item key="setting:3">Option 3</Menu.Item>
+              <Menu.Item key="setting:4">Option 4</Menu.Item>
+            </Menu.ItemGroup>
+          </SubMenu>
+          <Menu.Item key="alipay">
+            <a
+              href="https://ant.design"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Navigation Four - Link
+            </a>
+          </Menu.Item>
+        </Menu>
       </header>
       <main className={styles.children}>{children}</main>
       <footer>footer</footer>
-    </Box>
+    </div>
   );
 }
