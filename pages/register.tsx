@@ -1,4 +1,13 @@
 import { Form, Input, Checkbox, Button, Typography } from "antd";
+import { openNotification } from "utils/toast";
+import {
+  RadiusUpleftOutlined,
+  RadiusUprightOutlined,
+  RadiusBottomleftOutlined,
+  RadiusBottomrightOutlined,
+} from "@ant-design/icons";
+
+import axios from "axios";
 
 const { Title } = Typography;
 
@@ -34,10 +43,11 @@ const tailFormItemLayout = {
 };
 
 type IUser = {
+  name: string;
   agreement: boolean;
   confirm: string;
   email: string;
-  nickname: string;
+  username: string;
   password: string;
 };
 
@@ -46,6 +56,21 @@ export default function Register() {
 
   const onFinish = (values: IUser) => {
     console.log("Received values of form: ", values);
+
+    axios
+      .post("http://localhost:8000/api/v1/register", {
+        name: values.name,
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      })
+      .then((response) => {
+        openNotification("info");
+        console.log(response);
+      })
+      .catch((error) => {
+        openNotification("warning", error.response.data.error);
+      });
   };
 
   return (
@@ -56,12 +81,35 @@ export default function Register() {
         form={form}
         name="register"
         onFinish={onFinish}
-        initialValues={{
-          residence: ["zhejiang", "hangzhou", "xihu"],
-          prefix: "86",
-        }}
         scrollToFirstError
       >
+        <Form.Item
+          name="name"
+          label="Name"
+          rules={[
+            {
+              required: true,
+              message: "Please input your name!",
+              whitespace: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="username"
+          label="Username"
+          tooltip="What do you want others to call you?"
+          rules={[
+            {
+              required: true,
+              message: "Please input your username!",
+              whitespace: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item
           name="email"
           label="E-mail"
@@ -117,21 +165,6 @@ export default function Register() {
           ]}
         >
           <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          name="nickname"
-          label="Nickname"
-          tooltip="What do you want others to call you?"
-          rules={[
-            {
-              required: true,
-              message: "Please input your nickname!",
-              whitespace: true,
-            },
-          ]}
-        >
-          <Input />
         </Form.Item>
 
         <Form.Item
