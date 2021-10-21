@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Form, Input, Checkbox, Button, Typography } from "antd";
 import { openNotification } from "utils/toast";
 import {
@@ -7,7 +8,9 @@ import {
   RadiusBottomrightOutlined,
 } from "@ant-design/icons";
 
-import axios from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
+
+import { API } from "config";
 
 const { Title } = Typography;
 
@@ -52,25 +55,27 @@ type IUser = {
 };
 
 export default function Register() {
+  const [buttonText, setButtonText] = useState("Register");
   const [form] = Form.useForm();
 
-  const onFinish = (values: IUser) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values: IUser) => {
+    setButtonText("Registering");
 
-    axios
-      .post("http://localhost:8000/api/v1/register", {
+    try {
+      const { data } = await axios.post<{
+        message: string;
+      }>(`${API}/register`, {
         name: values.name,
         username: values.username,
         email: values.email,
         password: values.password,
-      })
-      .then((response) => {
-        openNotification("info");
-        console.log(response);
-      })
-      .catch((error) => {
-        openNotification("warning", error.response.data.error);
       });
+      openNotification("info", data.message);
+      setButtonText("Submitted");
+    } catch (error: any) {
+      openNotification("warning", error.response.data.error);
+      setButtonText("Register");
+    }
   };
 
   return (
@@ -185,8 +190,12 @@ export default function Register() {
           </Checkbox>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            Register
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={buttonText === "Registering"}
+          >
+            {buttonText}
           </Button>
         </Form.Item>
       </Form>
