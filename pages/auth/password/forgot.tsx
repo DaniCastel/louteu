@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import { Router, useRouter } from "next/router";
 
 import { Form, Input, Checkbox, Button, Typography } from "antd";
 import axios, { AxiosResponse, AxiosError } from "axios";
@@ -20,29 +19,24 @@ type IUser = {
   password: string;
 };
 
-export default function Login() {
+export default function Forgot() {
   const router = useRouter();
-  const [buttonText, setButtonText] = useState("Login");
+  const [buttonText, setButtonText] = useState("Send email");
 
   const onFinish = async (values: IUser) => {
-    setButtonText("Logging in");
+    setButtonText("Sending email");
 
     try {
       const response = await axios.post<{
         message: string;
-      }>(`${API}/login`, {
+      }>(`${API}/forgot-password`, {
         email: values.email,
-        password: values.password,
       });
-      authenticate(response, () => {
-        isAuth().role === "admin"
-          ? router.push("/admin")
-          : router.push("/user");
-        openNotification("success", response.data.message);
-      });
+      openNotification("success", response.data.message);
+      setButtonText("Done");
     } catch (error: any) {
       openNotification("warning", error.response.data.error);
-      setButtonText("Login");
+      setButtonText("Send email");
     }
   };
 
@@ -55,7 +49,7 @@ export default function Login() {
 
   return (
     <div>
-      <Title>Login</Title>
+      <Title>Forgot password</Title>
       {JSON.stringify(isAuth())}
       <Form
         name="basic"
@@ -90,43 +84,20 @@ export default function Login() {
         </Form.Item>
 
         <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
           wrapperCol={{
             offset: 8,
             span: 16,
           }}
         >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={buttonText === "Sending email"}
+          >
             {buttonText}
           </Button>
         </Form.Item>
       </Form>
-      <Link href="/auth/password/forgot">
-        <a>Forgot password</a>
-      </Link>
     </div>
   );
 }
