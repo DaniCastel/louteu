@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
+import { isAuth, logout } from "helpers/auth";
 import Link from "next/link";
 import Router from "next/router";
 
@@ -95,16 +95,42 @@ export default function Layout({
           selectedKeys={[state.current]}
           mode="horizontal"
         >
-          <Menu.Item key="mail" icon={<MailOutlined />}>
-            <Link href={"/login"}>
-              <a>login</a>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="app" icon={<AppstoreOutlined />}>
-            <Link href={"/register"}>
-              <a>Register</a>
-            </Link>
-          </Menu.Item>
+          {isAuth() && isAuth().role === "admin" && (
+            <Menu.Item key="admin">
+              <Link href={"/admin"}>
+                <a>{isAuth().name}</a>
+              </Link>
+            </Menu.Item>
+          )}
+          {isAuth() && isAuth().role === "subscriber" && (
+            <Menu.Item key="user">
+              <Link href={"/user"}>
+                <a>{isAuth().name}</a>
+              </Link>
+            </Menu.Item>
+          )}
+          {!isAuth() && (
+            <>
+              <Menu.Item key="mail" icon={<MailOutlined />}>
+                <Link href={"/login"}>
+                  <a>login</a>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="app" icon={<AppstoreOutlined />}>
+                <Link href={"/register"}>
+                  <a>Register</a>
+                </Link>
+              </Menu.Item>
+            </>
+          )}
+          {isAuth() && (
+            <Menu.Item key="app" icon={<AppstoreOutlined />}>
+              <a onClick={logout}>
+                <a>Logout</a>
+              </a>
+            </Menu.Item>
+          )}
+
           <SubMenu
             key="SubMenu"
             icon={<SettingOutlined />}

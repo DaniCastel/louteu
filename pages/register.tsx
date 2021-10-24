@@ -1,16 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { Form, Input, Checkbox, Button, Typography } from "antd";
+import axios from "axios";
 import { openNotification } from "utils/toast";
-import {
-  RadiusUpleftOutlined,
-  RadiusUprightOutlined,
-  RadiusBottomleftOutlined,
-  RadiusBottomrightOutlined,
-} from "@ant-design/icons";
-
-import axios, { AxiosResponse, AxiosError } from "axios";
 
 import { API } from "config";
+import { isAuth } from "helpers/auth";
 
 const { Title } = Typography;
 
@@ -55,6 +50,7 @@ type IUser = {
 };
 
 export default function Register() {
+  const router = useRouter();
   const [buttonText, setButtonText] = useState("Register");
   const [form] = Form.useForm();
 
@@ -77,6 +73,9 @@ export default function Register() {
       setButtonText("Register");
     }
   };
+  useEffect(() => {
+    isAuth() && router.push("/");
+  }, []);
 
   return (
     <div>
