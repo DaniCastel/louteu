@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { isAuth, logout } from "helpers/auth";
 import Link from "next/link";
@@ -58,20 +58,10 @@ export const siteTitle = "Louteu, easiest work for teams";
 
 export default function Layout({
   children,
-  home,
 }: {
   children: React.ReactNode;
   home?: boolean;
 }) {
-  const [state, setState] = useState({
-    current: "mail",
-  });
-
-  const handleClick = (e: { key: any }) => {
-    console.log("click ", e);
-    setState({ current: e.key });
-  };
-
   return (
     <div className={styles.container}>
       <Head>
@@ -90,71 +80,43 @@ export default function Layout({
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
-        <Menu
-          onClick={handleClick}
-          selectedKeys={[state.current]}
-          mode="horizontal"
-        >
+        <ul>
           {isAuth() && isAuth().role === "admin" && (
-            <Menu.Item key="admin">
+            <li>
               <Link href={"/admin"}>
                 <a>{isAuth().name}</a>
               </Link>
-            </Menu.Item>
+            </li>
           )}
           {isAuth() && isAuth().role === "subscriber" && (
-            <Menu.Item key="user">
+            <li>
               <Link href={"/user"}>
                 <a>{isAuth().name}</a>
               </Link>
-            </Menu.Item>
+            </li>
           )}
           {!isAuth() && (
             <>
-              <Menu.Item key="mail" icon={<MailOutlined />}>
-                <Link href={"/login"}>
+              <li>
+                <Link key="login" href={"/login"}>
                   <a>login</a>
                 </Link>
-              </Menu.Item>
-              <Menu.Item key="app" icon={<AppstoreOutlined />}>
-                <Link href={"/register"}>
+              </li>
+              <li>
+                <Link key="register" href={"/register"}>
                   <a>Register</a>
                 </Link>
-              </Menu.Item>
+              </li>
             </>
           )}
           {isAuth() && (
-            <Menu.Item key="app" icon={<AppstoreOutlined />}>
-              <a onClick={logout}>
-                <a>Logout</a>
+            <li>
+              <a key="logout" onClick={logout}>
+                Logout
               </a>
-            </Menu.Item>
+            </li>
           )}
-
-          <SubMenu
-            key="SubMenu"
-            icon={<SettingOutlined />}
-            title="Navigation Three - Submenu"
-          >
-            <Menu.ItemGroup title="Item 1">
-              <Menu.Item key="setting:1">Option 1</Menu.Item>
-              <Menu.Item key="setting:2">Option 2</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.ItemGroup title="Item 2">
-              <Menu.Item key="setting:3">Option 3</Menu.Item>
-              <Menu.Item key="setting:4">Option 4</Menu.Item>
-            </Menu.ItemGroup>
-          </SubMenu>
-          <Menu.Item key="alipay">
-            <a
-              href="https://ant.design"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Navigation Four - Link
-            </a>
-          </Menu.Item>
-        </Menu>
+        </ul>
       </header>
       <main className={styles.children}>{children}</main>
       <footer>footer</footer>
