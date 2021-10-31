@@ -79,7 +79,7 @@ export default function Register() {
 
   return (
     <div>
-      <Title>h1. Ant Design</Title>
+      <Title>Register</Title>
       <Form
         {...formItemLayout}
         form={form}
