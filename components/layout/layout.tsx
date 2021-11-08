@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { isAuth, logout } from "helpers/auth";
 import Link from "next/link";
 import Router from "next/router";
+import Image from "next/image"
 
-import { Menu, Button } from "antd";
+import cn from 'classnames'
+
+import { Menu, Avatar } from "antd";
 import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
+  UserOutlined,
+  MenuOutlined,
+  CloseOutlined
 } from "@ant-design/icons";
 
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 
+
+import NProgress from "nprogress";
+
+
+import { isAuth, logout } from "helpers/auth";
+
+
+import logo from "assets/images/louteu.png"
+import logoPurple from "assets/images/louteu_purple.png"
+
+import "nprogress/nprogress.css";
 import styles from "./layout.module.scss";
 import utilStyles from "../styles/utils.module.scss";
 
@@ -62,6 +73,26 @@ export default function Layout({
   children: React.ReactNode;
   home?: boolean;
 }) {
+
+  //navbar scroll when active state
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileActive, setMobileActive] = useState(false);
+
+  const changeBackground = () => {
+    if (window.scrollY >= 66) {
+      setScrolled(true)
+    } else {
+      setScrolled(false)
+    }
+  }
+
+
+  useEffect(() => {
+    changeBackground()
+    // adding the event when scroll change background
+    window.addEventListener("scroll", changeBackground)
+  })
+
   return (
     <div className={styles.container}>
       <Head>
@@ -79,8 +110,24 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
-        <ul>
+      <header className={cn({
+        [styles.navbar__scrolled]: scrolled,
+        [styles.navbar__active]: mobileActive,
+        [styles.navbar]: true
+      })}>
+        <div className={styles.navbar__mobile_menu} onClick={() => setMobileActive(!mobileActive)}>
+          {mobileActive ? (
+            <CloseOutlined className="menu-icon" />
+          ) : (
+            <MenuOutlined className="menu-icon" />
+          )}
+        </div>
+
+        <ul className={cn({
+          [styles.navbar__options_active]: mobileActive,
+          [styles.navbar__options]: true
+        })}
+        >
           {isAuth() && isAuth().role === "admin" && (
             <li>
               <Link href={"/admin"}>
@@ -117,9 +164,18 @@ export default function Layout({
             </li>
           )}
         </ul>
-      </header>
+
+        <div className={styles.navbar__logo}>
+          <Link href={"/"}>
+            <a>Louteu</a>
+          </Link>
+        </div>
+        <div className={styles.navbar__avatar}>
+          <Avatar icon={<UserOutlined />} />
+        </div>
+      </header >
       <main className={styles.children}>{children}</main>
       <footer>footer</footer>
-    </div>
+    </div >
   );
 }
