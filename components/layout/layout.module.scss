@@ -4,13 +4,8 @@
 .container {
   display: grid;
   grid-template-rows: min-content 1fr min-content;
-  background-color: #edf2f7;
-
-  @include respond(phone) {
-    background-color: turquoise;
-  }
+  background-color: #F7FAFF;
 }
-
 
 .navbar {
   position: -webkit-sticky;
@@ -46,6 +41,7 @@
     margin: 0;
     grid-column: 2/3;
     grid-row: 1/-1;
+    gap: 2rem;
 
     @include respond(tab-port) {
       grid-column: 1/-1;
@@ -82,21 +78,17 @@
 
   &__logo {
     grid-column: 1/2;
+    font-family: $font-logo;
 
     @include respond(tab-port) {
       grid-column: 2/3;
     }
   }
-
-
 }
-
 
 .mobile-nav {
   display: none;
 }
-
-
 
 .backToHome {
   margin: 3rem 0 0;

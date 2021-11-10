@@ -167,7 +167,7 @@ export default function Layout({
 
         <div className={styles.navbar__logo}>
           <Link href={"/"}>
-            <a>Louteu</a>
+            <a><strong>Louteu</strong></a>
           </Link>
         </div>
         <div className={styles.navbar__avatar}>
