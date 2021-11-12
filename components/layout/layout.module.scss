@@ -4,7 +4,7 @@
 .container {
   display: grid;
   grid-template-rows: min-content 1fr min-content;
-  background-color: #F7FAFF;
+  background-color: #F7F9FF;
 }
 
 .navbar {
@@ -92,4 +92,8 @@
 
 .backToHome {
   margin: 3rem 0 0;
+}
+
+.children {
+  font-size: 1.6rem;
 }
