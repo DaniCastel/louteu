@@ -22,16 +22,26 @@ type IUser = {
 export default function Login() {
   const router = useRouter();
   const [buttonText, setButtonText] = useState("Login");
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (name) => (e) => {
+    setState({
+      ...state,
+      [name]: e.target.value,
+    });
+  };
 
-  const onFinish = async (values: IUser) => {
+  const handleSubmit = async (e) => {
     setButtonText("Logging in");
-
+    e.preventDefault();
     try {
       const response = await axios.post<{
         message: string;
       }>(`${API}/login`, {
-        email: values.email,
-        password: values.password,
+        email: state.email,
+        password: state.password,
       });
       authenticate(response, () => {
         isAuth().role === "admin"
@@ -50,17 +60,43 @@ export default function Login() {
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+  const loginForm = () => (
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className="form-group">
+        <input
+          value={state.email}
+          onChange={handleChange("email")}
+          type="email"
+          className="form-control"
+          placeholder="Type your email"
+          required
+        />
+      </div>
+      <div className="form-group">
+        <input
+          value={state.password}
+          onChange={handleChange("password")}
+          type="password"
+          className="form-control"
+          placeholder="Type your password"
+          required
+        />
+      </div>
+      <div className="form-group">
+        <button className={styles.button}>{buttonText}</button>
+      </div>
+    </form>
+  );
+
   useEffect(() => {
     isAuth() && router.push("/");
   }, []);
 
   return (
     <div className={styles.container}>
-      <div className={styles.login_panel}>
+      <div className={styles.panel}>
         <h1>Login</h1>
+        {loginForm()}
         <Link href="/auth/password/forgot">
           <a>Forgot password</a>
         </Link>

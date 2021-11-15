@@ -9,7 +9,7 @@
 }
 
 
-.login_panel {
+.panel {
   display: grid;
   grid-template-columns: 1fr;
   overflow: hidden;
@@ -28,11 +28,62 @@
   }
 }
 
-.button,
-.form {
+.button{
   width: 100%;
 }
 
+.form{
+  width: 100%;
+
+  input{
+    width: 100%;
+    margin-bottom: 2rem;
+    display: block;
+    padding: 2rem;
+    color: inherit;
+    width: 100%;
+    font-size: 1.8rem;
+    border: none;
+    border-radius: 0.4rem;
+    border: 1px solid #B0BEC5;
+    padding: 1rem;
+    transition: box-shadow var(--transitionDuration);
+  }
+
+  input::placeholder {
+    color: #B0BEC5;
+  }
+
+  input:focus {
+    outline: none;
+    box-shadow: 0.2rem 0.8rem 1.6rem var(--colorPrimary600);
+    border: 2px solid $color-primary;
+  }
+
+  .button {
+    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 1.7rem;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button:hover {
+    box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+    transition-duration: .1s;
+  }
+}
 
 
 .ocean {
