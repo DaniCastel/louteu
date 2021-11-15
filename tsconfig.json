@@ -30,7 +30,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", 
+    "__tests__/*"
   ],
   "exclude": [
     "node_modules"

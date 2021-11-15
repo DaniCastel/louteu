@@ -3,31 +3,28 @@
       "browser": true,
       "es2021": true,
       "node": true,
-      "jest": true
+      "jest": true,
+      "jest/globals": true
     },
     "extends": [
       "next", 
-      "next/core-web-vitals", 
-      "airbnb",
-      "airbnb-typescript",
-      "plugin:@typescript-eslint/recommended", 
-      "plugin:eslint-comments/recommended",
-      "plugin:jest/recommended",
-      "plugin:promise/recommended",
-      "plugin:unicorn/recommended",
-      "prettier" // Prettier must be last brodie.
+      "next/core-web-vitals",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:jest/all",
+      "plugin:jest-dom/recommended",
+      "prettier" // Prettier must be last brodie.,
     ],
     "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    },
+    // "parserOptions": {
+    //   "project": "./tsconfig.json"
+    // },
     "plugins": [
       "@typescript-eslint",
-      "eslint-comments",
       "jest",
-      "promise",
+      "jest-dom",
       "import",
-      "unicorn",
+      "testing-library",
       "prettier"
     ],
     "rules": {
@@ -41,11 +38,19 @@
       "no-use-before-define": "off",
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-use-before-define": ["error"],
-      "unicorn/prevent-abbreviations": "off",
-      // Airbnb prefers forEach
-      "unicorn/no-array-for-each": "off",
       // It's not accurate in the monorepo style
-      "import/no-extraneous-dependencies": "off"
+      "import/no-extraneous-dependencies": "off",
+      // Testing library
+      "testing-library/await-async-query": "error",
+      "testing-library/no-await-sync-query": "error",
+      "testing-library/no-debugging-utils": "warn",
+      "testing-library/no-dom-import": "off",
+      // Jest
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/valid-expect": "error"
     },
     "settings": {
       "import/parsers": {
@@ -57,5 +62,12 @@
           "project": "./tsconfig.json"
         }
       }
-    }
+    },
+    "overrides": [
+      {
+        // 3) Now we enable eslint-plugin-testing-library rules or preset only for matching files!
+        "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+        "extends": ["plugin:testing-library/react"]
+      }
+    ]
   }
