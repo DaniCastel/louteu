@@ -7,38 +7,10 @@ import { openNotification } from "utils/toast";
 import { API } from "config";
 import { isAuth } from "helpers/auth";
 
+import styles from "./register.module.scss";
+
 const { Title } = Typography;
 
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
 type IUser = {
   name: string;
@@ -50,9 +22,9 @@ type IUser = {
 };
 
 export default function Register() {
+  const [form] = Form.useForm();
   const router = useRouter();
   const [buttonText, setButtonText] = useState("Register");
-  const [form] = Form.useForm();
 
   const onFinish = async (values: IUser) => {
     setButtonText("Registering");
@@ -78,12 +50,14 @@ export default function Register() {
   }, []);
 
   return (
-    <div>
+    <div className={styles.container}>
+      <div className={styles.panel}>
       <Title>Register</Title>
       <Form
-        {...formItemLayout}
         form={form}
         name="register"
+        layout="vertical"
+        className={styles.form}
         onFinish={onFinish}
         scrollToFirstError
       >
@@ -182,22 +156,32 @@ export default function Register() {
                   : Promise.reject(new Error("Should accept agreement")),
             },
           ]}
-          {...tailFormItemLayout}
+  
         >
           <Checkbox>
             I have read the <a href="">agreement</a>
           </Checkbox>
         </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item>
           <Button
             type="primary"
             htmlType="submit"
             disabled={buttonText === "Registering"}
+            className={styles.button}
           >
             {buttonText}
           </Button>
         </Form.Item>
       </Form>
+    </div>
+    <div className={styles.ocean}>
+        <div className={styles.wave}></div>
+        <div className={styles.wave}></div>
+      </div>
+      <div className={styles.ocean}>
+        <div className={styles.purple_wave}></div>
+        <div className={styles.purple_wave}></div>
+      </div>
     </div>
   );
 }

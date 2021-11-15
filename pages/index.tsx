@@ -17,9 +17,10 @@ export default function Home({
 }) {
   return (
     <Layout home>
-      {/* <Head>
-        <title>{siteTitle}</title>
+     <Head>
+        <title>welcome to next</title>
       </Head>
+       {/* 
       <section className={utilStyles.headingMd}>
         <p>[Your Self Introduction]</p>
         <p>
