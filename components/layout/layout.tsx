@@ -2,37 +2,24 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Router from "next/router";
-import Image from "next/image"
 
-import cn from 'classnames'
+import "nprogress/nprogress.css";
+import cn from "classnames";
 
-import { Menu, Avatar } from "antd";
-import {
-  UserOutlined,
-  MenuOutlined,
-  CloseOutlined
-} from "@ant-design/icons";
-
-
+import { Avatar } from "antd";
+import { UserOutlined, MenuOutlined, CloseOutlined } from "@ant-design/icons";
 
 import NProgress from "nprogress";
 
-
 import { isAuth, logout } from "helpers/auth";
 
-
-import logo from "assets/images/louteu.png"
-import logoPurple from "assets/images/louteu_purple.png"
-
-import "nprogress/nprogress.css";
 import styles from "./layout.module.scss";
-import utilStyles from "../styles/utils.module.scss";
 
-const { SubMenu } = Menu;
+import Footer from "@/components/footer/footer";
 
 let timer: ReturnType<typeof setTimeout>;
 let state: string;
-let activeRequests = 0;
+const activeRequests = 0;
 const delay = 250;
 
 function load() {
@@ -64,7 +51,6 @@ Router.events.on("routeChangeStart", load);
 Router.events.on("routeChangeComplete", stop);
 Router.events.on("routeChangeError", stop);
 
-const name = "[Your Name]";
 export const siteTitle = "Louteu, easiest work for teams";
 
 export default function Layout({
@@ -73,25 +59,23 @@ export default function Layout({
   children: React.ReactNode;
   home?: boolean;
 }) {
-
   //navbar scroll when active state
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
   const [mobileActive, setMobileActive] = useState(false);
 
   const changeBackground = () => {
     if (window.scrollY >= 66) {
-      setScrolled(true)
+      setScrolled(true);
     } else {
-      setScrolled(false)
+      setScrolled(false);
     }
-  }
-
+  };
 
   useEffect(() => {
-    changeBackground()
+    changeBackground();
     // adding the event when scroll change background
-    window.addEventListener("scroll", changeBackground)
-  })
+    window.addEventListener("scroll", changeBackground);
+  });
 
   return (
     <div className={styles.container}>
@@ -110,12 +94,17 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={cn({
-        [styles.navbar__scrolled]: scrolled,
-        [styles.navbar__active]: mobileActive,
-        [styles.navbar]: true
-      })}>
-        <div className={styles.navbar__mobile_menu} onClick={() => setMobileActive(!mobileActive)}>
+      <header
+        className={cn({
+          [styles.navbar__scrolled]: scrolled,
+          [styles.navbar__active]: mobileActive,
+          [styles.navbar]: true,
+        })}
+      >
+        <div
+          className={styles.navbar__mobile_menu}
+          onClick={() => setMobileActive(!mobileActive)}
+        >
           {mobileActive ? (
             <CloseOutlined className="menu-icon" />
           ) : (
@@ -123,10 +112,11 @@ export default function Layout({
           )}
         </div>
 
-        <ul className={cn({
-          [styles.navbar__options_active]: mobileActive,
-          [styles.navbar__options]: true
-        })}
+        <ul
+          className={cn({
+            [styles.navbar__options_active]: mobileActive,
+            [styles.navbar__options]: true,
+          })}
         >
           {isAuth() && isAuth().role === "admin" && (
             <li>
@@ -135,13 +125,7 @@ export default function Layout({
               </Link>
             </li>
           )}
-          {isAuth() && isAuth().role === "subscriber" && (
-            <li>
-              <Link href={"/user"}>
-                <a>{isAuth().name}</a>
-              </Link>
-            </li>
-          )}
+
           {!isAuth() && (
             <>
               <li>
@@ -167,15 +151,24 @@ export default function Layout({
 
         <div className={styles.navbar__logo}>
           <Link href={"/"}>
-            <a><strong>Louteu</strong></a>
+            <a>
+              <strong>Louteu</strong>
+            </a>
           </Link>
         </div>
-        <div className={styles.navbar__avatar}>
-          <Avatar icon={<UserOutlined />} />
+        <div>
+          {isAuth() && isAuth().role === "subscriber" && (
+            <div className={styles.navbar__avatar}>
+              <Avatar icon={<UserOutlined />} />
+              <Link href={"/user"}>
+                <a>{isAuth().name}</a>
+              </Link>
+            </div>
+          )}
         </div>
-      </header >
+      </header>
       <main className={styles.children}>{children}</main>
-      <footer>footer</footer>
-    </div >
+      <Footer></Footer>
+    </div>
   );
 }

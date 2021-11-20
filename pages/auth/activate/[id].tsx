@@ -8,6 +8,8 @@ import { openNotification } from "utils/toast";
 import { Button } from "antd";
 import { API } from "config";
 
+import styles from "./activate.module.scss";
+
 interface IToken {
   name: string;
   // whatever else is in the JWT.
@@ -25,7 +27,7 @@ function ActivateAccount({ router }: { router: Router }) {
   const { name, token, buttonText, success, error } = state;
 
   useEffect(() => {
-    let token = router.query.id as string;
+    const token = router.query.id as string;
     if (token) {
       const { name } = jwtDecode<IToken>(token);
       setState({ ...state, name, token });
@@ -43,18 +45,22 @@ function ActivateAccount({ router }: { router: Router }) {
         token,
       });
       // console.log(response)
-      setState({ ...state, name: "", token: "", buttonText: "Acttivated" });
+      setState({ ...state, name: "", token: "", buttonText: "Activated" });
       openNotification("success", response.data.message);
     } catch (error: any) {
-      setState({ ...state, buttonText: "Acttivate Account" });
+      setState({ ...state, buttonText: "Activate Account" });
       openNotification("error", error.response.data.error);
     }
   };
 
   return (
-    <div>
-      <div>Good day {name}, Ready to activatte your account?</div>
-      <Button onClick={clickHandler}>{buttonText}</Button>
+    <div className={styles.activate}>
+      <div className="card">
+        <div>Good day {name}, Ready to activate your account?</div>
+        <button className="button__primary" onClick={clickHandler}>
+          {buttonText}
+        </button>
+      </div>
     </div>
   );
 }

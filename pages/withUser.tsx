@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API } from "@/config";
+import { API } from "@/config/index";
 import { getCookie } from "../helpers/auth";
 
 const withUser = (Page) => {

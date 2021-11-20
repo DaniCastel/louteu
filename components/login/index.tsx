@@ -94,7 +94,7 @@ export default function Login() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.panel}>
+      <div className="card">
         <h1>Login</h1>
         {loginForm()}
         <Link href="/auth/password/forgot">

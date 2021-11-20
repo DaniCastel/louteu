@@ -12,9 +12,9 @@
 
 html,
 body,
-body>div:first-child,
+body > div:first-child,
 div#__next,
-div#__next>div {
+div#__next > div {
   height: 100%;
 }
 
@@ -23,7 +23,7 @@ html {
   font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
 }
 
-body>div {
+body > div {
   font-family: $font-primary;
   font-size: 1.6rem;
 }
@@ -47,7 +47,82 @@ img {
   background-color: aquamarine !important;
 }
 
-
-.ant-input{
+.ant-input {
   border-radius: 15px;
+}
+
+.button__primary {
+  background-image: linear-gradient(
+    92.88deg,
+    #455eb5 9.16%,
+    #5643cc 43.89%,
+    #673fd7 64.72%
+  );
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 1.7rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all 0.5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button__primary:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+  transition-duration: 0.1s;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  overflow: hidden;
+  z-index: 2;
+  padding: 5rem;
+  background-color: white;
+  align-items: center;
+  justify-items: center;
+  width: 50rem;
+  box-shadow: 0px 5px 20px -3px rgba(226, 197, 255, 0.7);
+  border-radius: 1rem;
+
+  @include respond(tab-port) {
+    width: 90%;
+  }
+}
+
+input,
+textarea {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: block;
+  padding: 2rem;
+  color: inherit;
+  width: 100%;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  border: 1px solid #b0bec5;
+  padding: 1rem;
+  transition: box-shadow var(--transitionDuration);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b0bec5;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0.2rem 0.8rem 1.6rem var(--colorPrimary600);
+  border: 2px solid $color-primary;
 }

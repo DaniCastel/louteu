@@ -4,7 +4,7 @@
 .container {
   display: grid;
   grid-template-rows: min-content 1fr min-content;
-  background-color: #F7F9FF;
+  background-color: #f7f9ff;
 }
 
 .navbar {
@@ -17,7 +17,7 @@
   background-color: transparent;
 
   display: grid;
-  grid-template-columns: min-content 1fr min-content;
+  grid-template-columns: min-content 1fr max-content;
   align-items: center;
   justify-items: center;
 
@@ -31,6 +31,11 @@
 
   &__active {
     background-color: white;
+  }
+
+  &__avatar {
+    display: flex;
+    flex-direction: row;
   }
 
   &__options {
