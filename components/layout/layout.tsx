@@ -118,6 +118,11 @@ export default function Layout({
             [styles.navbar__options]: true,
           })}
         >
+          <li>
+            <Link href={"/user/link/create"}>
+              <a>Submit a link</a>
+            </Link>
+          </li>
           {isAuth() && isAuth().role === "admin" && (
             <li>
               <Link href={"/admin"}>

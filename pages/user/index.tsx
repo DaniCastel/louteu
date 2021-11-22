@@ -1,17 +1,5 @@
-import withUser from "pages/withUser";
+import withUser from "../withUser";
 
-interface Props {
-  user: {
-    name: string;
-    email: string;
-    role: string;
-    _id: string;
-  };
-  token: any;
-}
-
-function User({ user, token }: Props) {
-  return <div>{JSON.stringify(user, token)}</div>;
-}
+const User = ({ user }) => <>{JSON.stringify(user)}</>;
 
 export default withUser(User);
