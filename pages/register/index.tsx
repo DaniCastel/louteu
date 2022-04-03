@@ -79,7 +79,7 @@ export default function Register() {
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>"error name"</FormErrorMessage>
+            <FormErrorMessage>error name</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.name}>
             <FormLabel htmlFor="username">Username</FormLabel>
@@ -91,7 +91,7 @@ export default function Register() {
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>"error name"</FormErrorMessage>
+            <FormErrorMessage>error name</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.name}>
             <FormLabel htmlFor="email">Email</FormLabel>
@@ -103,7 +103,7 @@ export default function Register() {
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>"error name"</FormErrorMessage>
+            <FormErrorMessage>error name</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.name}>
             <FormLabel htmlFor="password">password</FormLabel>
@@ -115,7 +115,7 @@ export default function Register() {
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>"error name"</FormErrorMessage>
+            <FormErrorMessage>error name</FormErrorMessage>
           </FormControl>
 
           <Button

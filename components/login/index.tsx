@@ -45,6 +45,8 @@ export default function Login() {
         email: state.email,
         password: state.password,
       });
+      console.log(response);
+
       authenticate(response, () => {
         isAuth().role === "admin"
           ? router.push("/admin")
@@ -52,8 +54,8 @@ export default function Login() {
         openToast("success", response.data.message);
       });
     } catch (error: any) {
+      console.log("error", error.response.data.error);
       if (error.response) {
-        console.log(error.response);
         openToast("warning", error.response.data.error);
       } else {
         console.log(error);

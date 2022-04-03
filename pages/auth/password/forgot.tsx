@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { Router, useRouter } from "next/router";
 
-import { Form, Input, Checkbox, Button, Typography } from "antd";
 import axios, { AxiosResponse, AxiosError } from "axios";
-
+import {
+  FormErrorMessage,
+  FormLabel,
+  FormControl,
+  Input,
+  Button,
+  Heading,
+} from "@chakra-ui/react";
 import { openToast } from "utils/toast";
 import { API } from "config";
 import { authenticate, isAuth } from "helpers/auth";
@@ -51,53 +57,35 @@ export default function Forgot() {
     <div>
       <Title>Forgot password</Title>
       {JSON.stringify(isAuth())}
-      <Form
-        name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 8,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
+      <form
+        name="register"
+        layout="vertical"
+        className={styles.form}
+        onSubmit={onFinish}
       >
-        <Form.Item
-          name="email"
-          label="E-mail"
-          rules={[
-            {
-              type: "email",
-              message: "The input is not valid E-mail!",
-            },
-            {
-              required: true,
-              message: "Please input your E-mail!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+        <FormControl isInvalid={errors.name}>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input
+            id="email"
+            placeholder="email"
+            {...register("email", {
+              required: "This is required",
+              minLength: { value: 4, message: "Minimum length should be 4" },
+            })}
+          />
+          <FormErrorMessage>error name</FormErrorMessage>
+        </FormControl>
 
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
+        <Button
+          mt={4}
+          colorScheme="teal"
+          isLoading={buttonText === "Sending email"}
+          type="submit"
+          className={styles.button}
         >
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={buttonText === "Sending email"}
-          >
-            {buttonText}
-          </Button>
-        </Form.Item>
-      </Form>
+          {buttonText}
+        </Button>
+      </form>
     </div>
   );
 }
