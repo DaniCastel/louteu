@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Form, Input, Checkbox, Button, Typography } from "antd";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import { openNotification } from "utils/toast";
+import { openToast } from "utils/toast";
 
 import { API } from "config";
 
@@ -64,10 +64,10 @@ export default function Register() {
         email: values.email,
         password: values.password,
       });
-      openNotification("info", data.message);
+      openToast("info", data.message);
       setState({ ...state, buttonText: "Submitted" });
     } catch (error: any) {
-      openNotification("warning", error.response.data.error);
+      openToast("warning", error.response.data.error);
       setState({ ...state, buttonText: "Reset Password" });
     }
   };

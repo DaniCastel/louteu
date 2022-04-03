@@ -6,7 +6,7 @@ import Router from "next/router";
 import "nprogress/nprogress.css";
 import cn from "classnames";
 
-import { Avatar } from "antd";
+import { Avatar } from "@chakra-ui/react";
 import { UserOutlined, MenuOutlined, CloseOutlined } from "@ant-design/icons";
 
 import NProgress from "nprogress";

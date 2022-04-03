@@ -18,6 +18,10 @@ const colors = {
 
 const theme = extendTheme(withDefaultColorScheme({ colorScheme: "purple" }), {
   colors,
+  fonts: {
+    heading: "Lato, sans-serif",
+    body: "Lato, sans-serif",
+  },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {

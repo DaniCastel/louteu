@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import {
+  FormErrorMessage,
+  FormLabel,
+  FormControl,
+  Input,
+  Button,
+  Heading,
+} from "@chakra-ui/react";
+
 import { useRouter } from "next/router";
-import { Form, Input, Checkbox, Button, Typography } from "antd";
 import axios from "axios";
-import { openNotification } from "utils/toast";
+import { openToast } from "utils/toast";
 
 import { API } from "config";
 import { isAuth } from "helpers/auth";
 
 import styles from "./register.module.scss";
-
-const { Title } = Typography;
 
 type IUser = {
   name: string;
@@ -21,7 +28,11 @@ type IUser = {
 };
 
 export default function Register() {
-  const [form] = Form.useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm();
   const router = useRouter();
   const [buttonText, setButtonText] = useState("Register");
 
@@ -37,10 +48,10 @@ export default function Register() {
         email: values.email,
         password: values.password,
       });
-      openNotification("info", data.message);
+      openToast("info", data.message);
       setButtonText("Submitted");
     } catch (error: any) {
-      openNotification("warning", error.response.data.error);
+      openToast("warning", error.response.data.error);
       setButtonText("Register");
     }
   };
@@ -51,128 +62,72 @@ export default function Register() {
   return (
     <div className={styles.container}>
       <div className={styles.panel}>
-        <Title>Register</Title>
-        <Form
-          form={form}
+        <Heading>Register</Heading>
+        <form
           name="register"
           layout="vertical"
           className={styles.form}
-          onFinish={onFinish}
-          scrollToFirstError
+          onSubmit={onFinish}
         >
-          <Form.Item
-            name="name"
-            label="Name"
-            rules={[
-              {
-                required: true,
-                message: "Please input your name!",
-                whitespace: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="username"
-            label="Username"
-            tooltip="What do you want others to call you?"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-                whitespace: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="email"
-            label="E-mail"
-            rules={[
-              {
-                type: "email",
-                message: "The input is not valid E-mail!",
-              },
-              {
-                required: true,
-                message: "Please input your E-mail!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+          <FormControl isInvalid={errors.name}>
+            <FormLabel htmlFor="name">First name</FormLabel>
+            <Input
+              id="name"
+              placeholder="name"
+              {...register("name", {
+                required: "This is required",
+                minLength: { value: 4, message: "Minimum length should be 4" },
+              })}
+            />
+            <FormErrorMessage>"error name"</FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.name}>
+            <FormLabel htmlFor="username">Username</FormLabel>
+            <Input
+              id="username"
+              placeholder="username"
+              {...register("username", {
+                required: "This is required",
+                minLength: { value: 4, message: "Minimum length should be 4" },
+              })}
+            />
+            <FormErrorMessage>"error name"</FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.name}>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <Input
+              id="email"
+              placeholder="email"
+              {...register("email", {
+                required: "This is required",
+                minLength: { value: 4, message: "Minimum length should be 4" },
+              })}
+            />
+            <FormErrorMessage>"error name"</FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.name}>
+            <FormLabel htmlFor="password">password</FormLabel>
+            <Input
+              id="password"
+              placeholder="password"
+              {...register("password", {
+                required: "This is required",
+                minLength: { value: 4, message: "Minimum length should be 4" },
+              })}
+            />
+            <FormErrorMessage>"error name"</FormErrorMessage>
+          </FormControl>
 
-          <Form.Item
-            name="password"
-            label="Password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-            hasFeedback
+          <Button
+            mt={4}
+            colorScheme="teal"
+            isLoading={isSubmitting}
+            type="submit"
+            className={styles.button}
           >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            name="confirm"
-            label="Confirm Password"
-            dependencies={["password"]}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: "Please confirm your password!",
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue("password") === value) {
-                    return Promise.resolve();
-                  }
-
-                  return Promise.reject(
-                    new Error(
-                      "The two passwords that you entered do not match!"
-                    )
-                  );
-                },
-              }),
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            name="agreement"
-            valuePropName="checked"
-            rules={[
-              {
-                validator: (_, value) =>
-                  value
-                    ? Promise.resolve()
-                    : Promise.reject(new Error("Should accept agreement")),
-              },
-            ]}
-          >
-            <Checkbox>
-              I have read the <a href="">agreement</a>
-            </Checkbox>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              disabled={buttonText === "Registering"}
-              className={styles.button}
-            >
-              {buttonText}
-            </Button>
-          </Form.Item>
-        </Form>
+            {buttonText}
+          </Button>
+        </form>
       </div>
       <div className={styles.ocean}>
         <div className={styles.wave}></div>

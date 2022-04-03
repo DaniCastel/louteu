@@ -4,7 +4,7 @@ import { Router, useRouter } from "next/router";
 import { Form, Input, Checkbox, Button, Typography } from "antd";
 import axios, { AxiosResponse, AxiosError } from "axios";
 
-import { openNotification } from "utils/toast";
+import { openToast } from "utils/toast";
 import { API } from "config";
 import { authenticate, isAuth } from "helpers/auth";
 
@@ -32,10 +32,10 @@ export default function Forgot() {
       }>(`${API}/forgot-password`, {
         email: values.email,
       });
-      openNotification("success", response.data.message);
+      openToast("success", response.data.message);
       setButtonText("Done");
     } catch (error: any) {
-      openNotification("warning", error.response.data.error);
+      openToast("warning", error.response.data.error);
       setButtonText("Send email");
     }
   };

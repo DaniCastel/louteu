@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 import axios from "axios";
 
-import { openNotification } from "utils/toast";
+import { openToast } from "utils/toast";
 import { Button } from "antd";
 import { API } from "config";
 
@@ -46,10 +46,10 @@ function ActivateAccount({ router }: { router: Router }) {
       });
       // console.log(response)
       setState({ ...state, name: "", token: "", buttonText: "Activated" });
-      openNotification("success", response.data.message);
+      openToast("success", response.data.message);
     } catch (error: any) {
       setState({ ...state, buttonText: "Activate Account" });
-      openNotification("error", error.response.data.error);
+      openToast("error", error.response.data.error);
     }
   };
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { API } from "@/config/index";
-import { openNotification } from "utils/toast";
+import { openToast } from "utils/toast";
 import styles from "./category.module.scss";
 
 export default function CategoryForm({ token }) {
@@ -44,11 +44,11 @@ export default function CategoryForm({ token }) {
         buttonText: "Created",
         imageUploadText: "Upload image",
       });
-      openNotification("success", `${response.data.name} is created`);
+      openToast("success", `${response.data.name} is created`);
     } catch (error) {
       console.log("CATEGORY CREATE ERROR", error);
       setState({ ...state, name: "", buttonText: "Create" });
-      // openNotification("error", error.response.data.error);
+      // openToast("error", error.response.data.error);
     }
   };
   return (

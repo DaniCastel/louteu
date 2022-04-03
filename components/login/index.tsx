@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+import { Heading } from "@chakra-ui/react";
+
 import axios, { AxiosResponse, AxiosError } from "axios";
 
-import { openNotification } from "@/utils/toast";
+import { openToast } from "@/utils/toast";
 import { API } from "@/config/index";
 import { authenticate, isAuth } from "@/helpers/auth";
 
@@ -47,14 +49,15 @@ export default function Login() {
         isAuth().role === "admin"
           ? router.push("/admin")
           : router.push("/user");
-        openNotification("success", response.data.message);
+        openToast("success", response.data.message);
       });
     } catch (error: any) {
       if (error.response) {
-        openNotification("warning", error.response.data.error);
+        console.log(error.response);
+        openToast("warning", error.response.data.error);
       } else {
         console.log(error);
-        openNotification("error", "Server error");
+        openToast("error", "Server error");
       }
       setButtonText("Login");
     }
@@ -95,7 +98,7 @@ export default function Login() {
   return (
     <div className={styles.container}>
       <div className="card">
-        <h1>Login</h1>
+        <Heading>Login</Heading>
         {loginForm()}
         <Link href="/auth/password/forgot">
           <a>Forgot password</a>
