@@ -5,10 +5,10 @@ import jwtDecode from "jwt-decode";
 import axios from "axios";
 
 import { openToast } from "utils/toast";
-import { Button } from "antd";
 import { API } from "config";
 
 import styles from "./activate.module.scss";
+import { Button } from "@chakra-ui/react";
 
 interface IToken {
   name: string;
@@ -24,7 +24,7 @@ function ActivateAccount({ router }: { router: Router }) {
     error: "",
   });
 
-  const { name, token, buttonText, success, error } = state;
+  const { name, token, buttonText } = state;
 
   useEffect(() => {
     const token = router.query.id as string;
@@ -57,9 +57,7 @@ function ActivateAccount({ router }: { router: Router }) {
     <div className={styles.activate}>
       <div className="card">
         <div>Good day {name}, Ready to activate your account?</div>
-        <button className="button__primary" onClick={clickHandler}>
-          {buttonText}
-        </button>
+        <Button onClick={clickHandler}>{buttonText}</Button>
       </div>
     </div>
   );

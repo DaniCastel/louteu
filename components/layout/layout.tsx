@@ -11,11 +11,10 @@ import { UserOutlined, MenuOutlined, CloseOutlined } from "@ant-design/icons";
 
 import NProgress from "nprogress";
 
-import { isAuth, logout } from "helpers/auth";
-
 import styles from "./layout.module.scss";
 
 import Footer from "@/components/footer/footer";
+import Navbar from "./navbar";
 
 let timer: ReturnType<typeof setTimeout>;
 let state: string;
@@ -94,84 +93,7 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header
-        className={cn({
-          [styles.navbar__scrolled]: scrolled,
-          [styles.navbar__active]: mobileActive,
-          [styles.navbar]: true,
-        })}
-      >
-        <div
-          className={styles.navbar__mobile_menu}
-          onClick={() => setMobileActive(!mobileActive)}
-        >
-          {mobileActive ? (
-            <CloseOutlined className="menu-icon" />
-          ) : (
-            <MenuOutlined className="menu-icon" />
-          )}
-        </div>
-
-        <ul
-          className={cn({
-            [styles.navbar__options_active]: mobileActive,
-            [styles.navbar__options]: true,
-          })}
-        >
-          <li>
-            <Link href={"/user/link/create"}>
-              <a>Submit a link</a>
-            </Link>
-          </li>
-          {isAuth() && isAuth().role === "admin" && (
-            <li>
-              <Link href={"/admin"}>
-                <a>{isAuth().name}</a>
-              </Link>
-            </li>
-          )}
-
-          {!isAuth() && (
-            <>
-              <li>
-                <Link key="login" href={"/login"}>
-                  <a>login</a>
-                </Link>
-              </li>
-              <li>
-                <Link key="register" href={"/register"}>
-                  <a>Register</a>
-                </Link>
-              </li>
-            </>
-          )}
-          {isAuth() && (
-            <li>
-              <a key="logout" onClick={logout}>
-                Logout
-              </a>
-            </li>
-          )}
-        </ul>
-
-        <div className={styles.navbar__logo}>
-          <Link href={"/"}>
-            <a>
-              <strong>Louteu</strong>
-            </a>
-          </Link>
-        </div>
-        <div>
-          {isAuth() && isAuth().role === "subscriber" && (
-            <div className={styles.navbar__avatar}>
-              <Avatar icon={<UserOutlined />} />
-              <Link href={"/user"}>
-                <a>{isAuth().name}</a>
-              </Link>
-            </div>
-          )}
-        </div>
-      </header>
+      <Navbar></Navbar>
       <main className={styles.children}>{children}</main>
       <Footer></Footer>
     </div>

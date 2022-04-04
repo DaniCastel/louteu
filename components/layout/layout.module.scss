@@ -10,12 +10,9 @@
 .navbar {
   position: -webkit-sticky;
   position: sticky;
-  font-size: 1.8rem;
-  z-index: 999;
   top: 0;
   transition: all 0.3s ease-in;
   background-color: transparent;
-
   display: grid;
   grid-template-columns: min-content 1fr max-content;
   align-items: center;
@@ -82,11 +79,11 @@
   }
 
   &__logo {
-    grid-column: 1/2;
+
     font-family: $font-logo;
 
     @include respond(tab-port) {
-      grid-column: 2/3;
+      
     }
   }
 }
@@ -99,6 +96,3 @@
   margin: 3rem 0 0;
 }
 
-.children {
-  font-size: 1.6rem;
-}
