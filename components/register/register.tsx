@@ -34,11 +34,8 @@ export default function Register() {
     formState: { errors, isSubmitting },
   } = useForm();
   const router = useRouter();
-  const [buttonText, setButtonText] = useState("Register");
 
   const onSubmit = async (values) => {
-    setButtonText("Registering");
-
     try {
       const { data } = await axios.post<{
         message: string;
@@ -49,11 +46,9 @@ export default function Register() {
         password: values.password,
       });
       openToast("info", data.message);
-      setButtonText("Submitted");
     } catch (error: any) {
       console.log(error);
       openToast("warning", error.response.data.error);
-      setButtonText("Register");
     }
   };
   useEffect(() => {
@@ -63,7 +58,7 @@ export default function Register() {
   return (
     <div className={styles.container}>
       <div className={styles.panel}>
-        <Heading>Register</Heading>
+        <Heading>Registro</Heading>
         <form
           name="register"
           className={styles.form}
@@ -79,7 +74,7 @@ export default function Register() {
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>error name</FormErrorMessage>
+            <FormErrorMessage>Ingresa tu nombre</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.name}>
             <FormLabel htmlFor="username">Username</FormLabel>
@@ -91,7 +86,7 @@ export default function Register() {
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>error name</FormErrorMessage>
+            <FormErrorMessage>Ingresa un username</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.name}>
             <FormLabel htmlFor="email">Email</FormLabel>
@@ -103,29 +98,31 @@ export default function Register() {
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>error name</FormErrorMessage>
+            <FormErrorMessage>Ingresa un email valido</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.name}>
             <FormLabel htmlFor="password">password</FormLabel>
             <Input
               id="password"
+              type="password"
               placeholder="password"
               {...register("password", {
                 required: "This is required",
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>error name</FormErrorMessage>
+            <FormErrorMessage>Ingresa un password</FormErrorMessage>
           </FormControl>
 
           <Button
             mt={4}
-            colorScheme="teal"
+            w="100%
+            "
             isLoading={isSubmitting}
             type="submit"
             className={styles.button}
           >
-            {buttonText}
+            Registrarme
           </Button>
         </form>
       </div>

@@ -54,7 +54,6 @@ export default function Login() {
         openToast("success", response.data.message);
       });
     } catch (error: any) {
-      console.log("error", error.response.data.error);
       if (error.response) {
         openToast("warning", error.response.data.error);
       } else {

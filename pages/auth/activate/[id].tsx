@@ -19,7 +19,7 @@ function ActivateAccount({ router }: { router: Router }) {
   const [state, setState] = useState({
     name: "",
     token: "",
-    buttonText: "Activate Account",
+    buttonText: "Activar cuenta",
     success: "",
     error: "",
   });
@@ -44,8 +44,8 @@ function ActivateAccount({ router }: { router: Router }) {
       }>(`${API}/register/activate`, {
         token,
       });
-      // console.log(response)
-      setState({ ...state, name: "", token: "", buttonText: "Activated" });
+
+      setState({ ...state, name: "", token: "", buttonText: "Activado" });
       openToast("success", response.data.message);
     } catch (error: any) {
       setState({ ...state, buttonText: "Activate Account" });
@@ -56,7 +56,7 @@ function ActivateAccount({ router }: { router: Router }) {
   return (
     <div className={styles.activate}>
       <div className="card">
-        <div>Good day {name}, Ready to activate your account?</div>
+        <div>Hola! {name}, Listo(a) para activar tu cuenta?</div>
         <Button onClick={clickHandler}>{buttonText}</Button>
       </div>
     </div>

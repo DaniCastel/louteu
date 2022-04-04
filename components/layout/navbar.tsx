@@ -69,14 +69,15 @@ export default function WithSubnavigation() {
             <DesktopNav />
           </Flex>
         </Flex>
-        {!isAuth() && (
-          <>
-            <Stack
-              flex={{ base: 1, md: 0 }}
-              justify={"flex-end"}
-              direction={"row"}
-              spacing={6}
-            >
+
+        <Stack
+          flex={{ base: 1, md: 0 }}
+          justify={"flex-end"}
+          direction={"row"}
+          spacing={6}
+        >
+          {!isAuth() ? (
+            <>
               <Button
                 as={"a"}
                 fontSize={"sm"}
@@ -98,9 +99,22 @@ export default function WithSubnavigation() {
                   <a>Registrarme</a>
                 </Link>
               </Button>
-            </Stack>
-          </>
-        )}
+            </>
+          ) : (
+            <Button>
+              <a key="logout" onClick={logout}>
+                Logout
+              </a>
+            </Button>
+          )}
+          {isAuth() && isAuth().role === "admin" && (
+            <Button>
+              <Link href={"/admin"}>
+                <a>Panel de admin{isAuth().name}</a>
+              </Link>
+            </Button>
+          )}
+        </Stack>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
