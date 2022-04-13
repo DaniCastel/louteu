@@ -4,7 +4,7 @@ import axios from "axios";
 import Resizer from "react-image-file-resizer";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import { API } from "@/config/index";
-import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
+
 import withAdmin from "pages/withAdmin";
 import "react-quill/dist/quill.bubble.css";
 
@@ -134,8 +134,7 @@ const Create = ({ user, token }) => {
       <div className="col-md-6 offset-md-3">
         <h1>Create category</h1>
         <br />
-        {success && showSuccessMessage(success)}
-        {error && showErrorMessage(error)}
+
         {createCategoryForm()}
       </div>
     </div>

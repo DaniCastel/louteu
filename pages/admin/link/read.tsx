@@ -3,11 +3,11 @@ import Layout from "../../../components/Layout";
 import Link from "next/link";
 import axios from "axios";
 import moment from "moment";
-import { API } from "../../../config";
+import { API } from "@/config/index";
 import InfiniteScroll from "react-infinite-scroller";
 import withAdmin from "pages/withAdmin";
 
-import { getCookie } from "@/helpers/helpers/auth";
+import { getCookie } from "@/helpers/auth";
 
 const Links = ({ token, links, totalLinks, linksLimit, linkSkip }) => {
   const [allLinks, setAllLinks] = useState(links);

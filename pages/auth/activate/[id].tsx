@@ -5,7 +5,7 @@ import jwtDecode from "jwt-decode";
 import axios from "axios";
 
 import { openToast } from "utils/toast";
-import { API } from "config";
+import { API } from "@/config/index";
 
 import styles from "./activate.module.scss";
 import { Button } from "@chakra-ui/react";

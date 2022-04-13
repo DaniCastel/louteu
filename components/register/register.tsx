@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   FormErrorMessage,
@@ -13,19 +13,10 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { openToast } from "utils/toast";
 
-import { API } from "config";
-import { isAuth } from "helpers/auth";
+import { API } from "@/config/index";
+import { isAuth } from "@/helpers/auth";
 
 import styles from "./register.module.scss";
-
-type IUser = {
-  name: string;
-  agreement: boolean;
-  confirm: string;
-  email: string;
-  username: string;
-  password: string;
-};
 
 export default function Register() {
   const {

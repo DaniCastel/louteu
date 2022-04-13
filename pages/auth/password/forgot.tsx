@@ -11,8 +11,8 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { openToast } from "utils/toast";
-import { API } from "config";
-import { authenticate, isAuth } from "helpers/auth";
+import { API } from "@/config/index";
+import { authenticate, isAuth } from "@/helpers/auth";
 
 const { Title } = Typography;
 

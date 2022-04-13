@@ -1,12 +1,11 @@
 // imports
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import withUser from "../withUser";
+import withUser from "../../withUser";
 import { isAuth } from "@/helpers/auth";
 import { API } from "@/config/index";
 
 const Update = ({ oldLink, token }) => {
-  console.log("oldLink", oldLink);
   // state
   const [state, setState] = useState({
     title: oldLink.title,
@@ -239,18 +238,13 @@ const Update = ({ oldLink, token }) => {
             {showMedium()}
           </div>
         </div>
-        <div className="col-md-8">
-          {success && showSuccessMessage(success)}
-          {error && showErrorMessage(error)}
-          {submitLinkForm()}
-        </div>
+        <div className="col-md-8">{submitLinkForm()}</div>
       </div>
     </>
   );
 };
 
 Update.getInitialProps = async ({ req, token, query }) => {
-  console.log("query.id", query.id);
   const response = await axios.get(`${API}/link/${query.id}`);
   return { oldLink: response.data, token };
 };

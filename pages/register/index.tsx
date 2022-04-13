@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { useRouter } from "next/router";
 
-import { isAuth } from "helpers/auth";
+import { isAuth } from "@/helpers/auth";
 
 import styles from "./register.module.scss";
 import Register from "@/components/register/register";

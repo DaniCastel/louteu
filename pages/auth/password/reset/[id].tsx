@@ -5,7 +5,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import { openToast } from "utils/toast";
 
-import { API } from "config";
+import { API } from "@/config/index";
 
 const { Title } = Typography;
 
