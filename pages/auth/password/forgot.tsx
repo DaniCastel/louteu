@@ -46,9 +46,6 @@ export default function Forgot() {
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
   useEffect(() => {
     isAuth() && router.push("/");
   }, []);

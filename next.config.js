@@ -8,15 +8,7 @@ module.exports = {
     DOMAIN: process.env.DOMAIN,
     FB_APP_ID: process.env.FB_APP_ID,
   },
-  i18n: {
-    /**
-     * Provide the locales you want to support in your application
-     */
-    locales: ["en", "es"],
-    /**
-     * This is the default locale you want to be used when visiting
-     * a non-locale prefixed path.
-     */
-    defaultLocale: "en",
+  images: {
+    domains: ["louteu.s3.amazonaws.com", "via.placeholder.com"],
   },
 };

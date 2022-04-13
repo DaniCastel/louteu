@@ -25,17 +25,15 @@ export default function CategoryForm({ token }) {
   };
 
   const handleSubmit = async (e) => {
-    console.log("submit");
     e.preventDefault();
     setState({ ...state, buttonText: "Creating" });
-    // console.log(...formData);
     try {
       const response = await axios.post(`${API}/category`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("CATEGORY CREATE RESPONSE", response);
+      "CATEGORY CREATE RESPONSE", response;
       setState({
         ...state,
         name: "",
@@ -46,7 +44,6 @@ export default function CategoryForm({ token }) {
       });
       openToast("success", `${response.data.name} is created`);
     } catch (error) {
-      console.log("CATEGORY CREATE ERROR", error);
       setState({ ...state, name: "", buttonText: "Create" });
       // openToast("error", error.response.data.error);
     }

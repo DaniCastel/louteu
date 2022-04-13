@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 import axios from "axios";
-import { getCookie, isAuth } from "../../../helpers/auth";
+import { getCookie, isAuth } from "@/helpers/auth";
 import { API } from "@/config/index";
 
 const Create = ({ token }) => {
@@ -71,7 +71,6 @@ const Create = ({ token }) => {
         medium: "",
       });
     } catch (error) {
-      console.log("LINK SUBMIT ERROR", error);
       setState({ ...state, error: error.response.data.error });
     }
   };
@@ -158,13 +157,11 @@ const Create = ({ token }) => {
     } else {
       all.splice(clickedCategory, 1);
     }
-    console.log("all >> categories", all);
     setState({ ...state, categories: all, success: "", error: "" });
   };
 
   // show categories > checkbox
   const showCategories = () => {
-    console.log("showCategories", loadedCategories);
     return loadedCategories.length > 0
       ? loadedCategories.map((c, i) => (
           <li className="list-unstyled" key={c._id}>
@@ -211,7 +208,6 @@ const Create = ({ token }) => {
       </div>
     </form>
   );
-  console.log(loadedCategories);
   return (
     <>
       <div className="row">

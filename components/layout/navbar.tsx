@@ -114,6 +114,16 @@ export default function WithSubnavigation() {
               </Link>
             </Button>
           )}
+          <li className="nav-item">
+            <Link href="/user/link/create">
+              <a
+                className="nav-link text-dark btn btn-success"
+                style={{ borderRadius: "0px" }}
+              >
+                Submit a link
+              </a>
+            </Link>
+          </li>
         </Stack>
       </Flex>
 

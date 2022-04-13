@@ -45,7 +45,6 @@ export default function Login() {
         email: state.email,
         password: state.password,
       });
-      console.log(response);
 
       authenticate(response, () => {
         isAuth().role === "admin"
@@ -57,7 +56,6 @@ export default function Login() {
       if (error.response) {
         openToast("warning", error.response.data.error);
       } else {
-        console.log(error);
         openToast("error", "Server error");
       }
       setButtonText("Login");

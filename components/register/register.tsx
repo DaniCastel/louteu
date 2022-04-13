@@ -98,7 +98,7 @@ export default function Register() {
                 minLength: { value: 4, message: "Minimum length should be 4" },
               })}
             />
-            <FormErrorMessage>Ingresa un email valido</FormErrorMessage>
+            <FormErrorMessage>Ingresa un email válido</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.name}>
             <FormLabel htmlFor="password">password</FormLabel>

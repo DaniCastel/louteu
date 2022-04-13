@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API } from "@/config/index";
-import { getCookie } from "../helpers/auth";
+import { getCookie } from "@/helpers/auth";
 
 const withAdmin = (Page) => {
   console.log("withAdmin");
