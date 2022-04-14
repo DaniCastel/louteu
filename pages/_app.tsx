@@ -16,7 +16,7 @@ const colors = {
   },
 };
 
-const theme = extendTheme(withDefaultColorScheme({ colorScheme: "purple" }), {
+const theme = extendTheme(withDefaultColorScheme({ colorScheme: "gray" }), {
   colors,
   fonts: {
     heading: "Lato, sans-serif",

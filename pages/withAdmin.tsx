@@ -3,10 +3,10 @@ import { API } from "@/config/index";
 import { getCookie } from "@/helpers/auth";
 
 const withAdmin = (Page) => {
-  console.log("withAdmin");
   const WithAuthAdmin = (props) => <Page {...props} />;
   WithAuthAdmin.getInitialProps = async (context) => {
     const token = getCookie("token", context.req);
+    console.log("withAdmin", token);
     let user = null;
 
     if (token) {

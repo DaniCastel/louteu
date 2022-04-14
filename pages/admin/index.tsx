@@ -1,3 +1,6 @@
+import { CreateProduct } from "@/components/home/createProduct";
+import { CreateBrand } from "@/components/home/createBrand";
+
 import withAdmin from "pages/withAdmin";
 
 interface Props {
@@ -11,7 +14,13 @@ interface Props {
 }
 
 function Admin({ user, token }: Props) {
-  return <div>{JSON.stringify(user, token)}</div>;
+  console.log(token);
+  return (
+    <div>
+      <CreateProduct></CreateProduct>
+      <CreateBrand token={token}></CreateBrand>
+    </div>
+  );
 }
 
 export default withAdmin(Admin);

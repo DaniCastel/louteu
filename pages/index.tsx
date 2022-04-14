@@ -1,6 +1,5 @@
 import { GetStaticProps } from "next";
 import axios from "axios";
-
 import { API } from "@/config/index";
 import CategoryList from "@/components/category/list";
 
@@ -20,7 +19,7 @@ export default function Home({
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const response = await axios.get(`${API}/categories`);
     return {
