@@ -92,7 +92,7 @@ export default function Footer() {
             <ListHeader>Entérate de lo último</ListHeader>
             <Stack direction={"row"}>
               <Input
-                placeholder={"Your email address"}
+                placeholder={"Tu correo"}
                 bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
                 border={0}
                 _focus={{
@@ -100,10 +100,10 @@ export default function Footer() {
                 }}
               />
               <IconButton
-                bg={useColorModeValue("green.400", "green.800")}
+                bg={useColorModeValue("pink.400", "pink.800")}
                 color={useColorModeValue("white", "gray.800")}
                 _hover={{
-                  bg: "green.600",
+                  bg: "pink.600",
                 }}
                 aria-label="Subscribe"
                 icon={<BiMailSend />}

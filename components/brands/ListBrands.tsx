@@ -16,6 +16,7 @@ export function ListBrands({ brands }: Props) {
         height={"200px"}
         shadow="lg"
         bg="white"
+        m="auto"
       >
         <Image
           src={brand.image.url}

@@ -12,11 +12,20 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   useDisclosure,
   Image,
 } from "@chakra-ui/react";
-import { FaBars, FaTimes, FaChevronDown, FaChevronRight } from "react-icons/fa";
+import {
+  FaBars,
+  FaTimes,
+  FaChevronDown,
+  FaChevronRight,
+  FaUser,
+} from "react-icons/fa";
 
 import { isAuth, logout } from "@/helpers/auth";
 
@@ -60,7 +69,7 @@ export default function WithSubnavigation() {
               <Image
                 borderRadius="full"
                 boxSize="55px"
-                src="/images/logo.png"
+                src="/images/logo_black.png"
                 alt="Louteu logo"
               />
             </a>
@@ -101,29 +110,32 @@ export default function WithSubnavigation() {
               </Button>
             </>
           ) : (
-            <Button>
-              <a key="logout" onClick={logout}>
-                Logout
-              </a>
-            </Button>
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label={isAuth().name}
+                icon={<FaUser />}
+                variant="outline"
+              />
+              <MenuList>
+                {isAuth() && isAuth().role === "admin" && (
+                  <MenuItem>
+                    <Link href={"/admin"}>
+                      <a>Mi Panel</a>
+                    </Link>
+                  </MenuItem>
+                )}
+                {isAuth() && isAuth().role === "admin" && (
+                  <MenuItem>
+                    <Link href={"/admin"}>
+                      <a>Crear marca</a>
+                    </Link>
+                  </MenuItem>
+                )}
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
           )}
-          {isAuth() && isAuth().role === "admin" && (
-            <Button>
-              <Link href={"/admin"}>
-                <a>Panel de admin{isAuth().name}</a>
-              </Link>
-            </Button>
-          )}
-          <li className="nav-item">
-            <Link href="/user/link/create">
-              <a
-                className="nav-link text-dark btn btn-success"
-                style={{ borderRadius: "0px" }}
-              >
-                Submit a link
-              </a>
-            </Link>
-          </li>
         </Stack>
       </Flex>
 
@@ -296,41 +308,7 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: "Inspiration",
-    children: [
-      {
-        label: "Explore Design Work",
-        subLabel: "Trending Design to inspire you",
-        href: "#",
-      },
-      {
-        label: "New & Noteworthy",
-        subLabel: "Up-and-coming Designers",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Find Work",
-    children: [
-      {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Learn Design",
-    href: "#",
-  },
-  {
-    label: "Hire Designers",
-    href: "#",
+    label: "Marcas",
+    href: "/marcas",
   },
 ];

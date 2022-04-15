@@ -9,16 +9,17 @@ import {
 
 type Props = {
   title: string;
+  src: string;
 };
 
-export function Header({ title }: Props) {
+export function Header({ title, src }: Props) {
   return (
     <Flex
       w={"full"}
       height="200px"
-      backgroundImage={"url(/images/header/pexels-photo-2113855.jpeg)"}
+      backgroundImage={src}
       backgroundSize={"cover"}
-      backgroundPosition={"center center"}
+      backgroundPosition={"bottom"}
     >
       <VStack
         w={"full"}

@@ -16,7 +16,10 @@ type Props = {
 function Marcas({ brands }: Props) {
   return (
     <>
-      <Header title="Marcas"></Header>{" "}
+      <Header
+        title="Marcas"
+        src="/images/header/labiales-pexels-photo-3373746.jpeg"
+      ></Header>
       <Box py={10} px={8}>
         <ListBrands brands={brands}></ListBrands>
       </Box>
